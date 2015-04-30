@@ -1,3 +1,6 @@
-array = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-capitalize = array.capitalize
-puts capitalize
+array = ["monday", "tuesday", "wednesday", "thursday", "friday"]
+
+array.each do |elt|
+  print elt.capitalize
+end
+
