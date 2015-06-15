@@ -1,0 +1,127 @@
+#FROM VATSAN UNIVERSITY
+CORE: /proc/sys/net/core
+
+hot_list_length		Maximum number of skb-heads to be cached
+optmem_max		Maximum ancillary buffer size per socket
+message_burst		Limits warning messages
+message_cost		Limits warning messages
+netdev_max_backlog	Maximum number of packets queued
+rmem_default		Socket receive buffer size
+wmem_default		Socket send buffer size
+rmem_max	 	Maximum receive socket buffer size
+wmem_max		Maximum send socket buffer size
+
+The message_cost and message_burst parameters are used to limit the warning messages written to the kernel log. The default setting limits warning messages to one every 5 seconds. The higher the error_cost is, the fewer messages are written. The error_bust parameter controls when messages are dropped.
+
+ICMP: /proc/sys/net/ipv4
+
+icmp_ratemask			  	Mask value for ICMP types
+icmp_ratelimit			  	Rate for sending ICMP packets
+icmp_ignore_bogus_error_responses	Warning messages from router
+icmp_echo_ignore_broadcasts		ICMP echo requests to broadcast addresses
+icmp_echo_ignore_all			ICMP echo requests
+igmp_max_membership			Maximum number of multicast groups
+
+The icmp_ratemask parameter contains ICMP types for which rates are limited.
+The icmp_ratelimit parameter limits the maximum rates for sending ICMP packets whose type matches the icmp_ratemask parameter to specific targets. A value of 0 disables any limit. The value is in jiffies.
+If icmp_ignore_bogus_error_responses is enabled, the kernel does not issue any log warnings when routers send bogus responses to broadcast frames.
+If the icmp_echo_ignore_all parameter is enabled, the kernel ignores all the ICMP echo requests sent to it. If icmp_echo_ignore_broadcasts is enabled, the kernel ignores all the ICMP echo requests sent to broadcast/multicast addresses.
+The igmp_max_membership parameter is the maximum number of multicast groups we can subscribe to.
+
+
+NEIGHBOR: /proc/sys/net/neigh/interface/
+
+locktime 		Time before replacing an old ARP entry
+proxy_delay 		Maximum time before answering an ARP request
+anycast_delay		Maximum delay for neighbor solicitation messages
+proxy_qlen		Maximum queue length of delayed proxy ARP
+unres_qlen		Maximum queue length for pending ARP request
+gc_stale_time		Time before a check for stale ARP entries
+delay_first_probe_time 	Delay for first probe if neighbor is reachable
+base_reachable_time 	Validity period of an entry once a neighbor has been found. Default is 30 seconds.
+retrans_time 		Time between neighbor solicitation retransmits
+app_solicit		Number of requests to send to user-level ARP daemon
+ucast_solicit 		Maximum number of retries for unicast solicitation
+mcast_solicit 		Maximum number of retries for multicast solicitation
+
+CONFIG: /proc/sys/net/conf/interface/
+
+proxy_arp 		Responds to ARP requests if enabled
+rp_filter 		Source validation is required if enabled
+bootp_relay 		Accepts packets with 0.x.y.z addresses
+accept_source_route 	Accepts set of IP addresses to visit on way
+send_redirects 		Sends ICMP redirects
+shared_media 		Different subnet communication
+secure_redirects 	Packet resend using secure interface
+accept_redirects 	Packet resend on same interface on an ICMP redirect
+mc_forwarding 		Multicast forwarding
+forwarding 		IP forwarding
+
+The secure_redirects parameter accepts ICMP redirect messages only for a gateway listed in the default gateway list. The send_redirects parameter determines whether such redirects are sent.
+Turning on the accept_source_route parameter gives a packet a list of IP addresses it should go through on its way.
+The bootp_relay parameter accepts packets with source addresses of 0.x.y.z with destinations not to this host as local ones.The BOOTP daemon is expected to catch and forward such packets.  
+The mc_forwarding parameter enables or disables multicast forwarding on this interface.
+The shared_media parameter allows the kernel to assume that different subnets on this device can communicate directly.
+Routing
+
+IPV4: /proc/sys/net/route/ 
+	
+error_burst 	Time before logging a warning message
+error_cost 	Cost factor for logging a warning message
+max_size 	Maximum size of routing cache
+max_delay 	Maximum delay in seconds for flushing routing cache
+min_delay 	Minimum delay in seconds for flushing routing cache
+
+The error_cost and error_bust parameters limit the warning messages written to the kernel log. The default setting limits warning messages to one every 5 seconds. The higher error_cost is, the fewer messages are written. The error_bust parameter controls when messages are dropped.
+TCP
+
+tcp_app_win Maximum window for application buffer
+tcp_reordering Maximum reordering of packets in a TCP stream
+tcp_max_syn_backlog Length of per-socket backlog queue
+
+tcp_rfc1337 		Sets TCP stack confirming to RFC1337
+tcp_stdurg 		Enables strict RFC793 interpretation of the TCP urgent pointer field
+tcp_fin_timeout 	Time in seconds it takes to receive a final FIN before the socket closes
+tcp_tw_reuse 		Reuse of timewait sockets
+tcp_max_orphans 	Maximum number of orphaned connections
+tcp_max_tw_buckets 	Maximum number of timewait sockets
+tcp_window_scaling 	Enables window scaling as defined in RFC1323
+tcp_timestamps		Enables timestamps as defined in RFC1323
+tcp_rmem 		Receive buffers for TCP socket
+tcp_wmem 		Send buffers for TCP socket
+tcp_mem 		Memory pages for TCP usage
+
+The tcp_wmem parameter has three fields. The first field, min, specifies the amount of memory reserved for send buffers for a TCP socket. The second field is the default amount of memory allowed for send buffers for a TCP socket. The last field, max, is the maximum amount of memory allowed for automatically selected send buffers for a TCP socket.
+
+The tcp_rmem parameter has three fields. The first field, min, is the minimum size of receive buffer used by TCP sockets. The second is the default amount of memory allowed for receive buffers used by TCP sockets. The last field, max, is the maximum size of the receive buffer allowed for automatically selected receive buffers for TCP sockets.
+
+The tcp_mem parameter has three fields. The first field, low, specifies the low limit on the number of pages below which TCP is not bothered about its usage of memory pages. The second field is high; when the amount of memory allocated by TCP exceeds this, TCP takes corrective actions until memory consumption falls below the low value. The last field, max, is the maximum number of pages allowed for queuing by all TCP sockets.
+
+tcp_sack 	Enables sack to acknowledge when a packet is received
+tcp_fack 	Enables forward acknowledgment
+tcp_dsack 	Enables extension to sack for duplicate packet detection
+ecn 		Enables explicit congestion notification
+
+tcp_keepalive_intvl 	Frequency of keepalive probes
+tcp_keepalive_probes 	Number of keepalive probes
+tcp_keepalive_time 	Keepalive message interval
+tcp_syn_retries 	Number of initial SYNs for outgoing connection
+tcp_retries1 		Number of retries for incoming connections
+tcp_retries2 		Number of retries before terminating
+
+The tcp_keepalive_probes parameter is the number of times the probes are sent before killing the nonresponding connections.
+
+The tcp_syn_retries parameter is the number of times initial SYNs for a TCP connection are transmitted. This timeout is for outgoing connections. For incoming connections, the number of retransmits is defined by the tcp_retries1 parameter.
+IP Fragmentation
+
+ip_nonlocal_bind 	Binds to nonlocal IP address
+ip_no_pmtu_disc 	Disables MTU path discovery
+ip_autoconfig 		How host got IP configuration
+ip_default_ttl 		Maximum number of hops a packet may travel
+ip_forward 		Forward packets between interfaces
+ipfrag_time 		Time in seconds to keep IP fragment in memory
+ip_dynaddr 		Enables dynamic socket address rewriting on interface address change
+ipfrag_low_thresh	Low-memory watermark for fragment handler
+ipfrag_high_thresh 	Maximum amount of memory used to reassemble IP fragments
+ip_local_port_range 	Range of ports used by TCP and UDP to choose the local port
+

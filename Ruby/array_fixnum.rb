@@ -1,7 +1,7 @@
 print "Enter the number:"
 
 array= []
-array=gets.chomp.to_i
+array=gets.to_i
 
 
 def array_of_fixnums?(array)
