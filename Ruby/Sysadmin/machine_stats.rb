@@ -4,7 +4,7 @@
 Load the required Gems
 =end
 
-
+require 'socket'
 require 'facter'
 require 'sys/filesystem'
 require 'free_disk_space'
@@ -49,5 +49,6 @@ puts "REDHAT VERSION: #{redhat_release}"
 puts "KERNEL: #{kernel_version}"
 puts "UPTIME: #{started}"
 puts "CPU CORES: #{self.processor_count}"
-    puts "kernel: #{Facter.value(:kernel)}"
+puts "IP's : #{Socket.getifaddrs.map { |i| i.addr.ip_address if i.addr.ipv4? }.compact}"
+puts "kernel: #{Facter.value(:kernel)}"
 puts "DISK USAGE: #{check_disk_space}GB"
