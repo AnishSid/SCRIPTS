@@ -1,10 +1,13 @@
 #!/usr/bin/env ruby
 
+puts "Enter the Directory to check: "
+DIRNAME = gets.chomp
+
 require 'digest/md5'
 
 hash = {}
 
-Dir.glob("**/*", File::FNM_DOTMATCH).each do |filename|
+Dir.glob("#{DIRNAME}**/*", File::FNM_DOTMATCH).each do |filename|
   next if File.directory?(filename)
 
   key = Digest::MD5.hexdigest(IO.read(filename)).to_sym
