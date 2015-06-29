@@ -16,5 +16,3 @@ File.open("file-analysis.txt", "w") do |f|
      puts txt
     end
 end
-     end
-end
