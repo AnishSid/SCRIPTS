@@ -1,4 +1,3 @@
-# Ruby
 
-Ruby for Unix System Administration
+Scripts for Unix System Administration
 
