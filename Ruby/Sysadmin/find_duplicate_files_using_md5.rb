@@ -26,3 +26,7 @@ hash.each_value do |x|
     x.each { |filename| puts '  '+filename }
   end
 end
+
+=begin
+OR JUST USE fdupes :) !!
+=end
