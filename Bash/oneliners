@@ -1,0 +1,37 @@
+#nfsmount total used available
+df -t nfs | grep s/v | awk '/%/ {t+=$2;u+=$3}END{td=t/1024/1024/1024;ud=u/1024/1024/1024;printf("total disk %f\nused disk %f\navail disk %f\n",td,ud,td-ud);}'
+
+#Mounted filers
+df -t nfs | grep nfs | perl -ane '$F[0]=~s/:.*//;$a{$F[0]}++; END {for (sort keys %a){printf("%s\n",$_);}}'
+
+#Space Eater -> 
+find . -type f -exec wc -c {} \; | sort -nr | head
+
+#compare colums
+awk -F" " '{if($1<$2){print $1,$2,"+"}else{print $1,$2,"-"}}' com
+
+#TCPDUMP->
+sudo tcpdump -s 0 -w ~/tcpdump.`date +%Y%m%d%H%M`
+tcpdump -r test | grep ' > ' | sed 's/.* > //' | awk '{print $1}' | sed 's/[0-9]*//' | sort | uniq -c | sort -n | less
+tcpdump -ttt -r tcpdump.201312120146 port 4080
+
+#Sort by memory->
+ps -eo pmem,pcpu,rss,vsize,args | { head -1 ; sort -k 1 -r -n ; } | less
+ps -eo pmem,pcpu,rss,vsize,args | sort -k 1 -r -n | more
+
+#Thread Dump->
+ sudo jstack -F 3540 | tee  ~/thread-dump.`date +%Y%m%d%H%M`
+
+#Root  clearup
+ sudo lsof | grep "(deleted)$" | sed -re 's/^\S+\s+(\S+)\s+\S+\s+([0-9]+).*/\1\/fd\/\2/' | while read file; do sudo bash -c ": > /proc/$file"; done
+
+#STRACE:
+strace -o output.txt /bin/foo
+strace -p 22254 -s 80 -o /tmp/debug.lighttpd.txt
+strace -e trace=open,read -p 22254 -s 80 -o debug.webserver.txt
+
+#FAILED DRIVES DIMMS
+sudo /usr/bin/ipmitool sel elist last 20
+sudo /opt/hp/hpssacli/bld/hpssacli ctrl slot=1 physicaldrive all show status
+
+
