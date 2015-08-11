@@ -2,8 +2,8 @@ puts "Input a string"
 
 string = gets.chomp
 
-def sort_string(string)
-    string.split(' ').sort{|x, y| x.length <=> y.length}.join(' ')
+def reverse_string(string)
+    string.split(' ').reverse{|x, y| x.length <=> y.length}.join(' ')
 end
 
-puts sort_string(string)
+puts reverse_string(string)
